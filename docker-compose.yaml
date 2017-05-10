@@ -1,0 +1,22 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    container_name: database
+  api:
+    build: ./api
+    volumes:
+      - ./api:/api
+    depends_on:
+      - db
+    container_name: api
+  app:
+    build: ./app
+    command: node index.js
+    volumes:
+      - ./app:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    container_name: app
