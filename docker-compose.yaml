@@ -11,12 +11,12 @@ services:
       - db
     container_name: api
   app:
-    build: ./app
-    command: node index.js
+    build: ./rocker-app
+    command: npm start
     volumes:
-      - ./app:/app
+      - ./rocker-app:/rocker-app
+      - /rocker-app/node_modules
     ports:
       - "3000:3000"
-    depends_on:
-      - api
+      - "3001:3001"
     container_name: app
